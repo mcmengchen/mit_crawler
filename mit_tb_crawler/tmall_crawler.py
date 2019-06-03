@@ -120,10 +120,15 @@ class taobao_infos:
 
 
     # 爬取天猫商品数据
-    def crawl_good_data(self):
-
+    def crawl_good_data(self,search_product):
+        print("搜索商品 = "+search_product)
         # 对天猫商品数据进行爬虫
-        self.browser.get("https://list.tmall.com/search_product.htm?q=投资金条")
+        search_url=""
+        if search_product.strip():
+            search_url="https://list.tmall.com/search_product.htm?q="+search_product
+        else:
+            search_url="https://list.tmall.com/search_product.htm?q=纸尿裤"
+        self.browser.get(search_url)
         # 获取天猫商品总共的页数
         page_total = self.search_toal_page()
         print("总共页数" + page_total)
@@ -185,9 +190,12 @@ if __name__ == "__main__":
     PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
     dir = PROJECT_ROOT.replace('mit_tb_crawler','')
     chromedriver_path = os.path.join(dir, "chromedriver/chromedriver")
-    if len(sys.argv)>=3:
+    if len(sys.argv) >=3:
         weibo_username = sys.argv[1]
         weibo_password = sys.argv[2]
+        product=""
+        if len(sys.argv) ==4 :
+            product=sys.argv[3]
         a = taobao_infos()
         a.login()
-        a.crawl_good_data()
+        a.crawl_good_data(product)
