@@ -20,14 +20,15 @@ import time
 import random
 
 # ==== 设定抢购时间 （修改此处，指定抢购时间点）====
-BUY_TIME = "2019-10-06 22:00:00"
+BUY_TIME = "2019-10-23 22:00:00.000"
 
 # ====  标识登录状态、重试次数 ====
 MAX_LOGIN_RETRY_TIMES = 6
 
 current_retry_login_times = 0
 login_success = False
-buy_time_object = datetime.datetime.strptime(BUY_TIME, '%Y-%m-%d %H:%M:%S')
+buy_time_object = datetime.datetime.strptime(BUY_TIME, '%Y-%m-%d %H:%M:%S.%f')
+# buy_time_object = datetime.datetime.strptime(BUY_TIME, '%Y-%m-%d %H:%M:%S')
 
 now_time = datetime.datetime.now()
 if now_time > buy_time_object:
@@ -80,7 +81,7 @@ def login():
     if not login_success:
         print("规定时间内没有扫码登录淘宝成功，执行失败，退出脚本!!!")
         exit(0);
-    
+
 
 
     # time.sleep(3)
